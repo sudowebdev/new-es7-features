@@ -25,20 +25,41 @@ const fetch = require("node-fetch");
 // const result = fetchAvatarUrl(123);
 // result.then(imgUrl => {console.log(imgUrl)})
 
-function fetchCatAvatarsOfAUser(userId) {
-    return fetch(`https://catappapi.herokuapp.com/users/${userId}`)
-            .then(res => res.json())
-            .then(data => data.cats)
-            .then(catIds => {
-                const promises = catIds.map((catId) => {
-                    return fetch(`https://catappapi.herokuapp.com/cats/${catId}`)
-                            .then(res => res.json())
-                            .then(catData => catData.imageUrl)
+
+
+//  Example 2 (With promises)
+//  function fetchCatAvatarsOfAUser(userId) {
+//     return fetch(`https://catappapi.herokuapp.com/users/${userId}`)
+//             .then(res => res.json())
+//             .then(data => data.cats)
+//             .then(catIds => {
+//                 const promises = catIds.map((catId) => {
+//                     return fetch(`https://catappapi.herokuapp.com/cats/${catId}`)
+//                             .then(res => res.json())
+//                             .then(catData => catData.imageUrl)
                             
-                })
-             return Promise.all(promises);
-            })
+//                 })
+//              return Promise.all(promises);
+//             })
+// }
+
+// const result = fetchCatAvatarsOfAUser(123);
+// result.then(data => {console.log(data)})  
+
+
+async function fetchCatAvatarsOfAUser(userId) {
+    const userResponse = await fetch(`https://catappapi.herokuapp.com/users/${userId}`);
+    const userData = await userResponse.json();
+    const catImageUrls = [];
+   
+    for(let catId of userData.cats){
+     const catResponse = await fetch(`https://catappapi.herokuapp.com/cats/${catId}`);
+     const catData = await catResponse.json();
+     catImageUrls.push(catData.imageUrl);   
+    }
+   return catImageUrls;
+
 }
 
 const result = fetchCatAvatarsOfAUser(123);
-result.then(data => {console.log(data)})  
+result

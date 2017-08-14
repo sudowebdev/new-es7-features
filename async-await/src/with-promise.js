@@ -4,7 +4,8 @@ function fetchAvatarUrl(userId) {
 	return fetch(`https://catappapi.herokuapp.com/users/${userId}`)
 		.then(res => {
 			console.log("Response: ", res);
-			return res.text();
+			res
+			return res.json();
 		})
 		.then(data => {
 			console.log("Data: ", data);

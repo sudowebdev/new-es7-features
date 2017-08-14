@@ -25,6 +25,20 @@ const fetch = require("node-fetch");
 // const result = fetchAvatarUrl(123);
 // result.then(imgUrl => {console.log(imgUrl)})
 
+function fetchCatAvatarsOfAUser(userId) {
+    return fetch(`https://catappapi.herokuapp.com/users/${userId}`)
+            .then(res => res.json())
+            .then(data => data.cats)
+            .then(catIds => {
+                const promises = catIds.map((catId) => {
+                    return fetch(`https://catappapi.herokuapp.com/cats/${catId}`)
+                            .then(res => res.json())
+                            .then(catData => catData.imageUrl)
+                            
+                })
+             return Promise.all(promises);
+            })
+}
 
-
-  
+const result = fetchCatAvatarsOfAUser(123);
+result.then(data => {console.log(data)})  

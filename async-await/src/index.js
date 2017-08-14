@@ -62,4 +62,4 @@ async function fetchCatAvatarsOfAUser(userId) {
 }
 
 const result = fetchCatAvatarsOfAUser(123);
-result
+result 

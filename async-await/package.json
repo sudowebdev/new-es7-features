@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel app.js -o build/bundle.js",
+    "start" : "node build/bundle.js"
   },
   "keywords": [],
   "author": "Nikhil Arora",

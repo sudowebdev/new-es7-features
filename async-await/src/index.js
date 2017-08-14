@@ -50,15 +50,11 @@ const fetch = require("node-fetch");
 async function fetchCatAvatarsOfAUser(userId) {
     const userResponse = await fetch(`https://catappapi.herokuapp.com/users/${userId}`);
     const userData = await userResponse.json();
-    const catImageUrls = [];
-   
-    for(let catId of userData.cats){
-     const catResponse = await fetch(`https://catappapi.herokuapp.com/cats/${catId}`);
-     const catData = await catResponse.json();
-     catImageUrls.push(catData.imageUrl);   
-    }
-   return catImageUrls;
-
+    return await Promise.all(userData.cats.map(async (catId) => {
+        const catResponse = await fetch(`https://catappapi.herokuapp.com/cats/${catId}`);
+        const catData = await catResponse.json();
+        return catData.imageUrl;
+    }))
 }
 
 const result = fetchCatAvatarsOfAUser(123);

@@ -1,4 +1,4 @@
 'use strict';
 
 require('babel-polyfill');
-require('./index.js');
+require('../src/index.js');

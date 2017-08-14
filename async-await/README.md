@@ -33,5 +33,7 @@ Some points to be noted here are:
 2. Inside a function marked as async, you are allowed to place the await keyword in front of an expression that returns a promise. When you do, the execution of the async function is paused until the promise is resolved.
 
 
-3. Whenever you place async in front of a function, then that function always (not the emphasis on always) returns a promise on being called.         
+3. Whenever you place async in front of a function, then that function always (not the emphasis on always) returns a promise on being called.       
+
+4. async-await lets us write asynchronous code that flows like synchronous code.  
        
